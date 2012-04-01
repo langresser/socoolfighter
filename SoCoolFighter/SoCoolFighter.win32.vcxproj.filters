@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{19dc079a-867d-4ab7-803c-b0f0f5a0288e}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{00d33aaf-0442-419f-8d60-90a6ada925ef}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{dbc12b36-4caf-497c-8541-6d54ceb3803a}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;png;manifest</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="win32\res\SoCoolFighter.ico">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="Resources\CloseSelected.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="Resources\CloseNormal.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="Resources\HelloWorld.png">
+      <Filter>resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="win32\SoCoolFighter.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="win32\resource.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\main.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\AppDelegate.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\HelloWorldScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="win32\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\AppDelegate.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\HelloWorldScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
