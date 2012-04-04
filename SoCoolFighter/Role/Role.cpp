@@ -5,6 +5,8 @@
 
 Role::Role()
 {
+	m_pro = kProThief;
+	m_wantToMove = false;
 }
 
 Role::~Role()
@@ -24,12 +26,11 @@ bool Role::load()
 	snprintf(szTemp, sizeof(szTemp) - 1, "%s.png", m_spriteName.c_str());
 	m_spriteSheet = CCSpriteBatchNode::batchNodeWithFile(szTemp);
 
-	snprintf(szTemp, sizeof(szTemp) - 1, "%s1-0.png", m_spriteName.c_str());
-	m_sprite = CCSprite::spriteWithSpriteFrameName(szTemp);
+	m_sprite = CCSprite::spriteWithSpriteFrameName("0.png");
 	m_spriteSheet->addChild(m_sprite);
 
-	// 设置角色脚下中点为锚点
-	m_sprite->setAnchorPoint(ccp(0.5, 0));
+	// 设置角色左下角为锚点
+	m_sprite->setAnchorPoint(ccp(0, 0));
 	addChild(m_spriteSheet);
 
 	return true;
@@ -60,7 +61,12 @@ void Role::process(ccTime dt)
 {
 	if (processAction()) {
 		// 前一个动作执行完毕，执行下一个动作
-		idle();
+		// 如果一直按着摇杆，那么持续走动
+		if (m_wantToMove) {
+			walk(m_moveAngle, m_movePower);
+		} else {
+			idle();
+		}
 	}
 }
 
@@ -84,52 +90,22 @@ void Role::setAction(int actionId)
 	m_posActionBegin = getPosition();
 
 	m_currentFrameIndex = 0;
-	m_actionFrameAmount = getActionFrameAmount(actionId);
-	m_actionFrameInterval = getActionFrameInterval(actionId);		// 帧间隔33ms
-}
-
-int Role::getActionFrameAmount(int action) const
-{
-	switch (action) {
-	case kActionIdle:
-		break;
-	case kActionWalkLeft:
-		return 3;
-		break;
-	case kActionWalkRight:
-		return 3;
-		break;
-	}
-
-	return 1;
-}
-
-int Role::getActionFrameInterval(int action) const
-{
-	switch (action) {
-	case kActionIdle:
-		break;
-	case kActionWalkLeft:
-		break;
-	case kActionWalkRight:
-		break;
-	}
-
-	return 200;
+	ActionInfo info = RoleManager::instance().getActionInfo(m_pro, actionId, 0);
+	m_actionFrameStartIndex = info.frameStartIndex;
+	m_actionFrameAmount = info.frameAmount;
+	m_actionFrameInterval = info.frameInterval;
+	m_actionFullId = info.actionId;
 }
 
 int Role::getActionMoveSpeed(int action) const
 {
-	switch (action) {
-	case kActionIdle:
-		break;
-	case kActionWalkLeft:
-		break;
-	case kActionWalkRight:
-		break;
+	if (action == kActionWalk) {
+		return 80;
+	} else if (action == kActionRun) {
+		return 150;
 	}
 
-	return 32;
+	return 0;
 }
 
 void Role::run(int dir)
@@ -139,6 +115,8 @@ void Role::run(int dir)
 
 void Role::walk(float angle, float power)
 {
+	int dir = m_dir;
+
 	// 正好为90或者-90的时候，不改变当前方向
 	if (angle > - 90 && angle < 90) {
 		m_dir = kDirRight;
@@ -146,26 +124,13 @@ void Role::walk(float angle, float power)
 		m_dir = kDirLeft;
 	}
 
-	int actionId = kActionIdle;
-	switch (m_dir)
-	{
-		// 恰好是向上或者是向下方向，不改变动作
-	case kDirUp:
-	case kDirDown:
-		actionId = m_actionType;
-		break;
-
-		// 左右移动的时候也可能产生y位移
-	case kDirLeft:
-		actionId = kActionWalkLeft;
-		break;
-	case kDirRight:
-		actionId = kActionWalkRight;
-		break;
+	int actionId = kActionWalk;
+	if (power >= 0.5f) {
+		actionId = kActionRun;
 	}
-
+	
 	// 当前正在做此动作
-	if (m_actionType == actionId) {
+	if (m_actionType == actionId && dir == m_dir && m_currentFrameIndex < m_actionFrameAmount) {
 		return;
 	}
 
@@ -199,6 +164,11 @@ bool Role::processAction()
 		if (deltaX != 0 && deltaY != 0) {
 			setPosition(m_posActionEnd);
 		}
+
+		if (kActionWalk == m_actionType) {
+			CCLOG("action over: %d   %d", m_currentFrameIndex, currentTime - m_actionStartTime);
+		}
+
 		return true;
 	}
 
@@ -224,29 +194,34 @@ bool Role::processAction()
 	}
 
 	char szTemp[256] = {0};
-	switch (m_actionType)
-	{
-	case kActionIdle:
-		break;
-	case kActionWalkLeft:
-		snprintf(szTemp, sizeof(szTemp) - 1, "%s3-%d.png", m_spriteName.c_str(), m_currentFrameIndex);
-		break;
-	case kActionWalkRight:
-		snprintf(szTemp, sizeof(szTemp) - 1, "%s4-%d.png", m_spriteName.c_str(), m_currentFrameIndex);
-		break;
-	}
+	snprintf(szTemp, sizeof(szTemp) - 1, "%d.png", m_actionFrameStartIndex + m_currentFrameIndex);
 
 	// 修改当前帧
 	CCSpriteFrame* frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(szTemp);
 	if (frame && !m_sprite->isFrameDisplayed(frame)) {
+		if (kActionWalk == m_actionType) {
+			CCLOG("current frame: %d   %d", m_currentFrameIndex, getCurrentTime() - m_actionStartTime);
+		}
+
 		m_sprite->setDisplayFrame(frame);
+
+		if (m_dir == kDirLeft) {
+			// 向左方向，所有图片翻转
+			m_sprite->setFlipX(true);
+		} else {
+			// 向右方向不用处理
+			m_sprite->setFlipX(false);
+		}
+
+		ActionFrameInfo info = RoleManager::instance().getActionFrameInfo(m_actionFullId, m_currentFrameIndex + m_actionFrameStartIndex);
+		if (info.offsetX != 0 || info.offsetY != 0) {
+			m_sprite->setPosition(ccp(info.offsetX, info.offsetY));
+		} else {
+			m_sprite->setPosition(ccp(0, 0));
+		}
 	}
 
-	if (m_currentFrameIndex >= m_actionFrameAmount) {
-		return true;
-	} else {
-		return false;
-	}
+	return false;
 }
 
 void Role::idle()
@@ -260,10 +235,15 @@ bool Role::create(uint32 roleId, const std::string& spriteName)
 	m_id = roleId;
 	m_spriteName = spriteName;
 	m_dir = kDirRight;
-	m_animationSpeed = 0.1f;
-	m_moveSpeed = 0.3f;
 
 	m_actionType = kActionIdle;
 
 	return load();
+}
+
+void Role::setMovePower(bool want, float angle, float power)
+{
+	m_wantToMove = want;
+	m_moveAngle = angle;
+	m_movePower = power;
 }

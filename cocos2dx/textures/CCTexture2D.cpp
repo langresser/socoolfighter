@@ -87,7 +87,7 @@ CCTexture2D::~CCTexture2D()
 }
 
 CCTexture2DPixelFormat CCTexture2D::getPixelFormat()
-{
+{/
 	return m_ePixelFormat;
 }
 

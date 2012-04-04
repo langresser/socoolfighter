@@ -1,13 +1,15 @@
 #include "stdafx.h"
 
 #include "GameLayer.h"
+#include "Role/RoleManager.h"
 
 bool GameLayer::init()
 {
 	GameMap::instance().create(1, "tile0");
 	addChild(&GameMap::instance());
 
-	Hero::instance().create(1, "playersprite_female");
+	RoleManager::instance();
+	Hero::instance().create(1, "skin/thief_skin0");
 
 	CCSize mapSize = GameMap::instance().getMapSize();
 	Hero::instance().setPosition(ccp(0, 0));

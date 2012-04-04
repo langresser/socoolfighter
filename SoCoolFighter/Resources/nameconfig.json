@@ -1,0 +1,24 @@
+{
+    "action":{
+        "Idle":1,
+        "Rest1":2,
+        "Rest2":3,
+        "Walk":100,
+        "Run":101,
+        "Attack1":200,
+        "Attack2":201,
+        "Attack3":202,
+        "Attack4":203,
+        "Skill1":300,
+        "Skill2":301,
+        "Skill3":302,
+        "HitFly":400
+        },
+    "pro": {
+        "Thief":10,
+        "Sword":20,
+        "Gunner":30,
+        "Mage":40,
+        "Priest":50
+        }
+}

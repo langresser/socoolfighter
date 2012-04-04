@@ -91,9 +91,14 @@ void HelloWorld::joyStickHandler(CCEvent* event)
 	}
 
 //	CCLOG("joyStickHandler:angle:%f  power:%f", je->angle, je->power);
-	if (je->type == JS_EVENT_END) {
+	if (je->type == JS_EVENT_BEGIN) {
+		Hero::instance().setMovePower(true, je->angle, je->power);
+		Hero::instance().walk(je->angle, je->power);
+	} else if (je->type == JS_EVENT_END) {
+		Hero::instance().setMovePower(false, 0, 0);
 		Hero::instance().idle();
 	} else {
+		Hero::instance().setMovePower(true, je->angle, je->power);
 		Hero::instance().walk(je->angle, je->power);
 	}
 }

@@ -3,13 +3,35 @@
 #include "Common/GlobalConstant.h"
 
 enum {
-	kActionIdle = 0,
-	kActionWalkLeft,
-	kActionWalkRight,
-	kActionAttack1,
+	kProThief = 10,
+	kProSword = 20,
+	kProGunner = 30,
+	kProMage = 40,
+	kProPriest = 50,
+};
+
+enum {
+	kActionIdle = 1,
+	kActionRest1,
+	kActionRest2,
+	kActionWalk = 100,
+	kActionRun = 101,
+	kActionAttack1 = 200,
 	kActionAttack2,
 	kActionAttack3,
 	kActionAttack4,
+	kActionSkill1 = 300,
+	kActionSkill2,
+	kActionSkill3,
+	kActionSkill4,
+	kActionSkill5,
+	kActionSkill6,
+	kActionSkillMax = 399,
+	kActionHitFly = 400,
+};
+
+enum {
+	kCommandIdle = 1,
 };
 
 enum {
@@ -58,18 +80,22 @@ public:
 
 	CCSpriteBatchNode* getSpriteSheet();
 
-	int getActionFrameAmount(int action) const;
-	int getActionFrameInterval(int action) const;
 	int getActionMoveSpeed(int action) const;
+	void setMovePower(bool want, float angle, float power);
 protected:
 	int m_id;
 	int m_dir;
-	float m_moveSpeed;
-	float m_animationSpeed;
+	int m_pro;	// 角色职业
+
+	bool m_wantToMove;
+	float m_moveAngle;
+	float m_movePower;
 
 	// 动作相关
 	int m_actionType;			// 动作编号
+	int m_actionFullId;			// 当前正在播放的动作id，完整编号
 	int m_currentFrameIndex;	// 当前播放到第几帧
+	int m_actionFrameStartIndex;// 用于文件帧索引
 	int m_actionFrameAmount;	// 总帧数
 	int m_actionKeyFrame;		// 关键帧。第几帧进行攻击计算
 	float m_actionDuration;	// 动作持续几秒

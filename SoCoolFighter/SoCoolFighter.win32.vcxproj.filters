@@ -27,6 +27,15 @@
     <None Include="Resources\HelloWorld.png">
       <Filter>resource</Filter>
     </None>
+    <None Include="Common\jsoncpp\json_internalarray.inl">
+      <Filter>include</Filter>
+    </None>
+    <None Include="Common\jsoncpp\json_internalmap.inl">
+      <Filter>include</Filter>
+    </None>
+    <None Include="Common\jsoncpp\json_valueiterator.inl">
+      <Filter>include</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="win32\SoCoolFighter.rc">
@@ -82,6 +91,36 @@
     <ClInclude Include="UI\JoyStick.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json\autolink.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json\config.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json\features.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json\forwards.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json\json.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json\reader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json\value.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json\writer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json_batchallocator.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\jsoncpp\json_tool.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">
@@ -118,6 +157,15 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="UI\JoyStick.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\jsoncpp\json_reader.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\jsoncpp\json_value.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\jsoncpp\json_writer.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
