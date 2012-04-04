@@ -132,13 +132,34 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\AppDelegate.h" />
+    <ClInclude Include="Classes\GameLayer.h" />
     <ClInclude Include="Classes\HelloWorldScene.h" />
+    <ClInclude Include="Common\GlobalConstant.h" />
+    <ClInclude Include="Common\GlobalUtil.h" />
+    <ClInclude Include="Common\Singleton.h" />
+    <ClInclude Include="GameMap\GameMap.h" />
+    <ClInclude Include="Role\Hero.h" />
+    <ClInclude Include="Role\Monster.h" />
+    <ClInclude Include="Role\Npc.h" />
+    <ClInclude Include="Role\Role.h" />
+    <ClInclude Include="Role\RoleManager.h" />
+    <ClInclude Include="UI\JoyStick.h" />
     <ClInclude Include="win32\main.h" />
     <ClInclude Include="win32\resource.h" />
+    <ClInclude Include="win32\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\AppDelegate.cpp" />
+    <ClCompile Include="Classes\GameLayer.cpp" />
     <ClCompile Include="Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="Common\GlobalUtil.cpp" />
+    <ClCompile Include="GameMap\GameMap.cpp" />
+    <ClCompile Include="Role\Hero.cpp" />
+    <ClCompile Include="Role\Monster.cpp" />
+    <ClCompile Include="Role\Npc.cpp" />
+    <ClCompile Include="Role\Role.cpp" />
+    <ClCompile Include="Role\RoleManager.cpp" />
+    <ClCompile Include="UI\JoyStick.cpp" />
     <ClCompile Include="win32\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

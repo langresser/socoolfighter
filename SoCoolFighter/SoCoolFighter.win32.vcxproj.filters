@@ -46,6 +46,42 @@
     <ClInclude Include="Classes\HelloWorldScene.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Role\Hero.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Role\Monster.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Role\Npc.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Role\Role.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Role\RoleManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Singleton.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\GlobalConstant.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GameLayer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\stdafx.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap\GameMap.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\GlobalUtil.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\JoyStick.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">
@@ -55,6 +91,33 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\HelloWorldScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Role\Role.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Role\Hero.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Role\Monster.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Role\Npc.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Role\RoleManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GameLayer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap\GameMap.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\GlobalUtil.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\JoyStick.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

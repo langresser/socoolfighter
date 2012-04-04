@@ -6,6 +6,8 @@
 #include "Box2D/Box2D.h"
 
 #include "SimpleAudioEngine.h"
+#include "ui/JoyStick.h"
+#include "GameLayer.h"
 
 class HelloWorld : public cocos2d::CCLayer
 {
@@ -21,6 +23,13 @@ public:
 
     // implement the "static node()" method manually
     LAYER_NODE_FUNC(HelloWorld);
+
+	void joyStickHandler(CCEvent* event);
+public:
+	void update();
+private:
+	JoyStick* m_joystick;
+	GameLayer* m_gameLayer;
 };
 
 #endif  // __HELLOWORLD_SCENE_H__

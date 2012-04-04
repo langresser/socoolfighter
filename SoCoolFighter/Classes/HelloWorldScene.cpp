@@ -1,6 +1,6 @@
-#include "HelloWorldScene.h"
+#include "stdafx.h"
 
-using namespace cocos2d;
+#include "HelloWorldScene.h"
 
 CCScene* HelloWorld::scene()
 {
@@ -60,28 +60,16 @@ bool HelloWorld::init()
         // Add the menu to HelloWorld layer as a child layer.
         this->addChild(pMenu, 1);
 
-        // 2. Add a label shows "Hello World".
+        m_gameLayer = GameLayer::node();
+        this->addChild(m_gameLayer, 0);
 
-        // Create a label and initialize with string "Hello World".
-        CCLabelTTF* pLabel = CCLabelTTF::labelWithString("Hello World", "Thonburi", 64);
-        CC_BREAK_IF(! pLabel);
-
-        // Get window size and place the label upper. 
-        CCSize size = CCDirector::sharedDirector()->getWinSize();
-        pLabel->setPosition(ccp(size.width / 2, size.height - 20));
-
-        // Add the label to HelloWorld layer as a child layer.
-        this->addChild(pLabel, 1);
-
-        // 3. Add add a splash screen, show the cocos2d splash image.
-        CCSprite* pSprite = CCSprite::spriteWithFile("HelloWorld.png");
-        CC_BREAK_IF(! pSprite);
-
-        // Place the sprite on the center of the screen
-        pSprite->setPosition(ccp(size.width/2, size.height/2));
-
-        // Add the sprite to HelloWorld layer as a child layer.
-        this->addChild(pSprite, 0);
+		m_joystick = JoyStick::joyStickWithCenter(ccp(80, 80), 50);
+		m_joystick->setBallSprite("Ball.png", "Ball_hl.png");
+		m_joystick->setDockSprite("Dock.png", "Dock_hl.png");
+		m_joystick->setEventHandler(this, event_selector(HelloWorld::joyStickHandler));
+		m_joystick->setBallRadius(15);
+		m_joystick->setTimerInterval(0.1f);
+		addChild(m_joystick);
 
         bRet = true;
     } while (0);
@@ -95,3 +83,17 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
     CCDirector::sharedDirector()->end();
 }
 
+void HelloWorld::joyStickHandler(CCEvent* event)
+{
+	JoyStickEvent* je = (JoyStickEvent*)event;
+	if (!je) {
+		return;
+	}
+
+//	CCLOG("joyStickHandler:angle:%f  power:%f", je->angle, je->power);
+	if (je->type == JS_EVENT_END) {
+		Hero::instance().idle();
+	} else {
+		Hero::instance().walk(je->angle, je->power);
+	}
+}
